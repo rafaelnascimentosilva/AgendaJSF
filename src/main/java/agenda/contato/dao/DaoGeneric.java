@@ -32,7 +32,7 @@ public class DaoGeneric<E> {
 		entitytransaction.begin();
 		
 		Object id = JPAUtil.getPrimaryKey(entidade);
-		entityManager.createQuery("delete from" + entidade.getClass().getCanonicalName() + "where id =" + id).executeUpdate();
+		entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id ="+id).executeUpdate();
 		
 		entitytransaction.commit();
 		entityManager.close();
