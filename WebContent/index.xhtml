@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title></title>
+</h:head>
+<h:body>
+	<h:form>
+
+		<h:outputLabel value="ID: " for="id" />
+		<h:inputText id="id" value="#{contatoBean.contato.id}" readonly="false" />
+		<br />
+
+		<h:outputLabel value="Nome: " for="nome" />
+		<h:inputText id="nome" value="#{contatoBean.contato.nome}" />
+		<br />
+
+		<h:outputLabel value="Fone: " for="fone" />
+		<h:inputText id="fone" value="#{contatoBean.contato.fone}" />
+		<br />
+
+		<h:outputLabel value="Nascimento: " for="nascimento" />
+		<h:inputText id="nascimento" value="#{contatoBean.contato.nascimento}">
+			<f:convertDateTime pattern="dd-MM-yyyy" />
+		</h:inputText>
+		<br />
+
+		<h:commandButton value="salvar" action="#{contatoBean.salvar}" />
+		<h:commandButton value="novo" action="#{contatoBean.novo}" />
+		<h:commandButton value="remove" action="#{contatoBean.remove}" />
+
+	</h:form>
+
+</h:body>
+
+</html>
