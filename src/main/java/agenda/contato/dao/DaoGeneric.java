@@ -1,5 +1,7 @@
 package agenda.contato.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -26,14 +28,30 @@ public class DaoGeneric<E> {
 		return retorno;
 	}
 
+	public List<E> getListaEntity(Class<E> entidade) {
+
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		EntityTransaction entitytransaction = entityManager.getTransaction();
+		entitytransaction.begin();
+
+	
+		List<E> retorno = entityManager.createQuery("from " + entidade.getName()).getResultList();
+
+		entitytransaction.commit();
+		entityManager.close();
+
+		return retorno;
+	}
+
 	public void deletaPorId(E entidade) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entitytransaction = entityManager.getTransaction();
 		entitytransaction.begin();
-		
+
 		Object id = JPAUtil.getPrimaryKey(entidade);
-		entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id ="+id).executeUpdate();
-		
+		entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id =" + id)
+				.executeUpdate();
+
 		entitytransaction.commit();
 		entityManager.close();
 	}
