@@ -4,65 +4,68 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
 	<title></title>
 </h:head>
 <h:body>
-	<h:form>
-
-		<h:outputLabel value="" for="id" />
-		<h:inputHidden id="id" value="#{contatoBean.contato.id}"	readonly="true" />
-		<br />
-
-		<h:outputLabel value="Nome: " for="nome" />
-		<h:inputText id="nome" value="#{contatoBean.contato.nome}" />
-		<br />
-
-		<h:outputLabel value="Fone: " for="fone" />
-		<h:inputText id="fone" value="#{contatoBean.contato.fone}" />
-		<br />
-
-		<h:outputLabel value="Nascimento: " for="nascimento" />
-		<h:inputText id="nascimento" value="#{contatoBean.contato.nascimento}">
-			<f:convertDateTime pattern="dd-MM-yyyy" />
-		</h:inputText>
-		<br />
+		<h:form id="form">
+		<p:growl id="growl" sticky="true" showDetail="true"/>	
 		
-		<h:commandButton value="novo" action="#{contatoBean.novo}" />
-		<h:commandButton value="salvar" action="#{contatoBean.salvar}" />
-		
+			<p:panel id="basic" header="Contatos" footer="© 2018 jsf primefaces" style="margin-bottom:20px">				
+				
+				<p:panelGrid columns="2" id="panel_contatos">	
+					<p:outputLabel value="Nome: " for="nome" />
+					<p:inputText id="nome" value="#{contatoBean.contato.nome}" required="true"    />							
+				
+					<p:outputLabel value="Fone: " for="fone" />
+					<p:inputText id="fone" value="#{contatoBean.contato.fone}"  required="true"  />													
+							
+					<p:outputLabel value="Nascimento: " for="nascimento" />
+        			<p:calendar id="nascimento" value="#{contatoBean.contato.nascimento}" pattern="dd-MM-yyyy" showOn="button" >
+        				<f:convertDateTime pattern="dd-MM-yyyy" />
+					</p:calendar>									
+							 	
+					<p:commandButton update="panel_contatos lista_cont" value="salvar" action="#{contatoBean.salvar}" />							
+					
+					<h:commandButton value="Reset" action="#{contatoBean.novo}" />						
+							
+				</p:panelGrid>				
+					
+				<p:dataTable  id="lista_cont" value="#{contatoBean.contatos}" var="contato">
+					<p:column>
+						<h:outputText value="#{contato.id}" />
+					</p:column>
 	
-		<h:dataTable value="#{contatoBean.contatos}" var="contato">
-			<h:column>
-				<h:outputText value="#{contato.id}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{contato.nome}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{contato.fone}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{contato.nascimento}">
-					<f:convertDateTime pattern="dd-MM-yyyy" />
-				</h:outputText>
-			</h:column>
-			<h:column>
-				<h:commandLink value="Editar">
-					<f:setPropertyActionListener target="#{contatoBean.contato}" value="#{contato}"></f:setPropertyActionListener>
-				</h:commandLink>
-			</h:column>
-			<h:column>
-				<h:commandLink value="Remover" action="#{contatoBean.remove}">
-					<f:setPropertyActionListener target="#{contatoBean.contato}" value="#{contato}"></f:setPropertyActionListener>
-				</h:commandLink>
-			</h:column>
-		</h:dataTable>
-	</h:form>
-
-
-
+					<p:column>
+						<h:outputText value="#{contato.nome}" />
+					</p:column>
+	
+					<p:column>
+						<h:outputText value="#{contato.fone}" />
+					</p:column>
+	
+					<p:column>
+						<h:outputText value="#{contato.nascimento}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+	
+					<p:column>
+						<p:commandButton update=":form" value="Editar" process="@this">
+							<f:setPropertyActionListener target="#{contatoBean.contato}"value="#{contato}"/>
+						</p:commandButton>
+					</p:column>
+	
+					<p:column>
+						<p:commandButton update=":form:lista_cont" value="Remover" action="#{contatoBean.remove}" process="@this">																	
+							 <f:setPropertyActionListener target="#{contatoBean.contato}" value="#{contato}" />							 
+						</p:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+								
+			</p:panel>		
+				
+		</h:form>	
 </h:body>
-
 </html>

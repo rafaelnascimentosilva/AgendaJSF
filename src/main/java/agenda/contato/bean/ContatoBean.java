@@ -20,6 +20,7 @@ public class ContatoBean {
 
 	public String salvar() {
 		contato = dao.merge(contato);
+		contato = new Contato();
 		carregaLista();
 		return "";
 	}
@@ -32,7 +33,7 @@ public class ContatoBean {
 
 	public String remove() {
 		dao.deletaPorId(contato);
-		contato = new Contato();
+		//contato = new Contato();
 		carregaLista();
 		return "";
 	}
