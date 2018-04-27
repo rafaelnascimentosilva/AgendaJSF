@@ -27,7 +27,7 @@ public class ContatoBean {
 
 	public String novo() {
 		contato = new Contato();
-		carregaLista();
+		//carregaLista();
 		return "";
 	}
 
