@@ -8,64 +8,82 @@
 	<title></title>
 </h:head>
 <h:body>
-		<h:form id="form">
-		<p:growl id="growl" sticky="true" showDetail="true"/>	
-		
-			<p:panel id="basic" header="Contatos" footer="© 2018 jsf primefaces" style="margin-bottom:20px">				
-				
-				<p:panelGrid columns="2" id="panel_contatos">	
-					<p:outputLabel value="Nome: " for="nome" />
-					<p:inputText id="nome" value="#{contatoBean.contato.nome}" required="true"    />							
-				
-					<p:outputLabel value="Fone: " for="fone" />
-					<p:inputText id="fone" value="#{contatoBean.contato.fone}"  required="true"  />													
-							
-					<p:outputLabel value="Nascimento: " for="nascimento" />
-        			<p:calendar id="nascimento" value="#{contatoBean.contato.nascimento}" pattern="dd-MM-yyyy" showOn="button" >
-        				<f:convertDateTime pattern="dd-MM-yyyy" />
-					</p:calendar>									
-							 	
-					<p:commandButton update="panel_contatos lista_cont" value="salvar" action="#{contatoBean.salvar}" />							
-					
-					<h:commandButton value="Reset" action="#{contatoBean.novo}" />						
-							
-				</p:panelGrid>				
-					
-				<p:dataTable  id="lista_cont" value="#{contatoBean.contatos}" var="contato">
-					<p:column>
-						<h:outputText value="#{contato.id}" />
-					</p:column>
+	<p:tooltip />
 	
-					<p:column>
-						<h:outputText value="#{contato.nome}" />
-					</p:column>
+		<p:growl id="messages" showDetail="true" closable="true" >
+			<p:autoUpdate />
+		</p:growl>
+
 	
-					<p:column>
-						<h:outputText value="#{contato.fone}" />
-					</p:column>
-	
-					<p:column>
-						<h:outputText value="#{contato.nascimento}">
-							<f:convertDateTime pattern="dd-MM-yyyy" />
-						</h:outputText>
-					</p:column>
-	
-					<p:column>
-						<p:commandButton update=":form" value="Editar" process="@this">
-							<f:setPropertyActionListener target="#{contatoBean.contato}"value="#{contato}"/>
-						</p:commandButton>
-					</p:column>
-	
-					<p:column>
-						<p:commandButton update=":form:lista_cont" value="Remover" action="#{contatoBean.remove}" process="@this">																	
-							 <f:setPropertyActionListener target="#{contatoBean.contato}" value="#{contato}" />							 
-						</p:commandButton>
-					</p:column>
-					
-				</p:dataTable>
-								
-			</p:panel>		
-				
-		</h:form>	
+	<h:form id="form">
+		<p:panel id="basic" header="Contatos" footer="© 2018 jsf primefaces"
+			style="margin:30px">
+
+			<p:separator />
+			
+			<p:panelGrid columns="2" id="panel_contatos">
+			
+				<p:outputLabel value="Nome: " for="nome" />
+					<p:inputText id="nome" value="#{contatoBean.contato.nome}"	required="true">
+						<f:validateLength minimum="4" maximum="40" />
+							<p:ajax update="" event="keyup" />
+					</p:inputText>
+
+				<p:outputLabel value="Fone: " for="fone" />
+					<p:inputMask id="fone" value="#{contatoBean.contato.fone}"	mask="(99) 9999-9999" required="true"  />
+
+				<p:outputLabel value="Nascimento: " for="nascimento" />
+				<p:calendar id="nascimento"	value="#{contatoBean.contato.nascimento}" mask="99-99-9999" pattern="dd-MM-yyyy" showOn="button" required="true">
+					<f:convertDateTime pattern="dd-MM-yyyy" />
+				</p:calendar>
+
+				<p:commandButton update="panel_contatos lista_cont"	actionListener="#{messagesView.info}" value="salvar"
+																		action="#{contatoBean.salvar}" 		  icon="ui-icon-check" />
+
+				<p:commandButton update="form panel_contatos" value="Reset" action="#{contatoBean.novo}" process="@this"/>
+
+			</p:panelGrid>
+
+			<p:dataTable id="lista_cont" value="#{contatoBean.contatos}" var="contato">
+
+				<p:column>
+					<f:facet name="header">ID </f:facet>
+					<h:outputText value="#{contato.id}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Nome </f:facet>
+					<h:outputText value="#{contato.nome}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Fone </f:facet>
+					<h:outputText value="#{contato.fone}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Data de Nascimento </f:facet>
+					<h:outputText value="#{contato.nascimento}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column>
+					<p:commandButton update=":form" value="Editar" process="@this">
+						<f:setPropertyActionListener value="#{contato}" target="#{contatoBean.contato}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column>
+					<p:commandButton update=":form:lista_cont" value="Remover"	action="#{contatoBean.remove}" process="@this">
+						<f:setPropertyActionListener value="#{contato}"	target="#{contatoBean.contato}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+	</h:form>
 </h:body>
 </html>
