@@ -17,14 +17,14 @@ public class Teste {
 		tra.begin();
 
 		Usuario u = new Usuario();
-		//u = manager.find(Usuario.class, 1);		
+		u = manager.find(Usuario.class, 1);		
 		
-		u.setNome("pedro");
-		u.setSenha("123456");		
+		//u.setNome("pedro");
+		//u.setSenha("123456");		
 		
 		Contato c = new Contato();
-		c.setNome("Garcia");
-		c.setFone("8533844455");
+		c.setNome("Aninha");
+		c.setFone("8533889500");
 		c.setUsuario(u);		
 		
 		u.getContatos().add(c);
