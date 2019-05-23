@@ -32,6 +32,14 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Contato> contatos = new ArrayList<Contato>();
 
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+	public Usuario(String string) {
+		this.Nome = string;
+	}
+	
+
 	public Integer getId() {
 		return Id;
 	}

@@ -8,22 +8,32 @@
 
 <h:body>
 	<h:head></h:head>
-	<p:fieldset legend="Login">
-
 		<h:form>
-			<p:columnGroup>
-				 <h:outputLabel for="it1" value="Nome:*" />  <p:inputText value="#{loginController.usuario.nome}" />
+		  <p:growl id="growl" showDetail="true" sticky="true" />  
+		  <p:panel header="Login">
+			<p:panelGrid columns="2" cellpadding="2" >
+				 <h:outputLabel for="it1" value="Nome:*" />  <p:inputText value="#{loginController.usuario.nome}" />				
 				
-				<br/>
 				<h:outputLabel for="it1" value="Senha:*" />  <p:inputText value="#{loginController.usuario.senha}" />
 				
 				<p:commandButton value="Logar" action="#{loginController.VerificaLogin}" />
-			</p:columnGroup>
+			</p:panelGrid>
+			</p:panel>
 		</h:form>
-	</p:fieldset>
-	<br />
+
+	<br /><br /><br />
 	<h:outputText value="#{loginController.mensagem}" />
-
-
+<h:form>
+<p:outputLabel for="console" value="Basic:" />
+        <p:selectOneMenu id="console" value="#{usuarioController.option}" style="width:125px">
+            <f:selectItem itemLabel="Select One" itemValue=""  />
+              <f:selectItems value="#{usuarioController.listaUsuarios}" var="user" itemValue="#{user}" itemLabel="#{user}"/>
+           <p:ajax event="change" update="outputOption" />
+        
+        </p:selectOneMenu>
+        	<br />	<br />	<br />
+            <h:outputText value="#{usuarioController.option}" id="outputOption" />         
+           
+   </h:form>    
 </h:body>
 </html>
