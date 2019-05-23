@@ -6,14 +6,40 @@
 
 <h:head>	</h:head>
 <h:body>
-	<p:panel header="Novo Usuário">
-	<h:form>
-		<p:panelGrid columns="2">
-			<p:outputLabel value="Nome"/><p:inputText value="#{usuarioCtrl.usuario.nome}"/>
-			<p:outputLabel value="Senha"/><p:inputText value="#{usuarioCtrl.usuario.senha}"/>
-			<p:commandButton value="Inserir" action="#{usuarioCtrl.Novo}"/>
-		</p:panelGrid>
+	<h:form id="form">
+	   <p:growl id="growl" showDetail="true" sticky="true" life="1000" closeable="true" />  
+		<p:panel id="panel" header="Novo Usuário">
+		
+			<p:panelGrid columns="2" id="panelGrid">
+			
+				<p:outputLabel for="nome"  value="Nome"/>
+				
+					<p:inputText id="nome" value="#{usuarioCtrl.usuario.nome}"  required="true"/>
+					
+				<p:outputLabel for="senha" value="Senha"/>
+					<p:inputText  id="senha" value="#{usuarioCtrl.usuario.senha}" required="true" />
+					
+				<p:commandButton value="Inserir" actionListener="#{usuarioCtrl.Novo}" update="panelGrid growl"/>
+			</p:panelGrid>
+		
+		</p:panel>
+		<!-- <p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40" modal="true" closable="true">
+    			<h:outputText value="usuário salvo com sucesso" />
+		</p:dialog>
+		 -->
+		 <p:dataTable var="u" value="#{usuarioCtrl.usuarioLista}" >
+	
+			<p:column headerText="Nome">			
+				<h:outputText value="#{u.Nome}"/>		
+		</p:column>
+			<p:column headerText="Senha">			
+				<h:outputText value="#{u.Senha}"/>		
+		</p:column>
+	
+	</p:dataTable>
 	</h:form>
-	</p:panel>
+	
+	
+	
 </h:body>
 </html>

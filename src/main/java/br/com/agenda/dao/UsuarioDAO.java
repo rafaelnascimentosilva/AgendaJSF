@@ -1,5 +1,6 @@
 package br.com.agenda.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,38 +10,46 @@ import br.com.agenda.interfaces.ICrud;
 import br.com.agenda.model.Usuario;
 
 public class UsuarioDAO implements ICrud<Usuario> {
+	
 	@Inject
-	private EntityManager mananer;
+	private EntityManager manager;
 
 	@Override
 	public void novo(Usuario u) {
-		this.mananer.getTransaction().begin();
-		this.mananer.persist(u);
-		this.mananer.getTransaction().commit();
+		this.manager.getTransaction().begin();
+		this.manager.persist(u);
+		this.manager.getTransaction().commit();
 	}
 
 	@Override
 	public void edita(Usuario u) {
-		this.mananer.getTransaction().begin();
-		this.mananer.merge(u);
-		this.mananer.getTransaction().commit();
+		this.manager.getTransaction().begin();
+		this.manager.merge(u);
+		this.manager.getTransaction().commit();
 	}
 
 	@Override
 	public void remove(Usuario u) {
-		this.mananer.getTransaction().begin();
-		this.mananer.remove(u);
-		this.mananer.getTransaction().commit();
+		this.manager.getTransaction().begin();
+		this.manager.remove(u);
+		this.manager.getTransaction().commit();
 	}
 
 	@Override
 	public Usuario obtem(Integer id) {
-		return this.mananer.find(Usuario.class, id);
+		return this.manager.find(Usuario.class, id);
 	}
 
 	@Override
-	public List<Usuario> lista() {
-		return mananer.createQuery("select u from Usuario u",Usuario.class).getResultList();
+	public List<Usuario> lista() {	
+		//return this.manager.createQuery("select u from Usuario u",Usuario.class).getResultList();
+		List<Usuario> gfg = new ArrayList<Usuario>(); 
+		  
+        // Initialize an ArrayList with add() 
+        gfg.add(new Usuario("ds")); 
+        gfg.add(new Usuario("ds")); 
+        gfg.add(new Usuario("ds")); 
+		return  gfg;
 	}
 
 }

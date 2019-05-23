@@ -1,13 +1,16 @@
 package br.com.agenda;
 
+import java.io.Serializable;
+
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class JPAUtil {
+public class JPAUtil implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("agenda_app");
 
 	@Produces

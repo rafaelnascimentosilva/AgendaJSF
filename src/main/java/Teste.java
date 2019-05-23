@@ -1,9 +1,10 @@
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import br.com.agenda.model.Contato;
+import br.com.agenda.dao.UsuarioDAO;
 import br.com.agenda.model.Usuario;
 
 public class Teste {
@@ -12,7 +13,21 @@ public class Teste {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("agenda_app");
 		EntityManager manager = factory.createEntityManager();
 
-		EntityTransaction tra = manager.getTransaction();
+		
+	
+		
+		//List<Usuario> u = manager.createQuery("select u from Usuario u",Usuario.class).getResultList();
+		
+		List<Usuario> u  = new UsuarioDAO().lista();
+		System.out.println("lista: "+ u.get(1).getNome());
+		
+		for (Usuario usuario : new UsuarioDAO().lista()) {
+			System.out.println(usuario.getNome());
+		}
+		
+		
+		
+	/*	EntityTransaction tra = manager.getTransaction();
 		
 		tra.begin();
 
@@ -33,7 +48,7 @@ public class Teste {
 		
 		tra.commit();
 
-		
+		*/
 		
 		
 	}
