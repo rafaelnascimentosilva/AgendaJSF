@@ -42,14 +42,7 @@ public class UsuarioDAO implements ICrud<Usuario> {
 
 	@Override
 	public List<Usuario> lista() {	
-		//return this.manager.createQuery("select u from Usuario u",Usuario.class).getResultList();
-		List<Usuario> gfg = new ArrayList<Usuario>(); 
-		  
-        // Initialize an ArrayList with add() 
-        gfg.add(new Usuario("ds")); 
-        gfg.add(new Usuario("ds")); 
-        gfg.add(new Usuario("ds")); 
-		return  gfg;
+		return this.manager.createQuery("select u from Usuario u",Usuario.class).getResultList();		
 	}
 
 }

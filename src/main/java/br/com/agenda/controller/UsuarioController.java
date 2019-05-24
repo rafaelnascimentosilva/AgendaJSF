@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -25,7 +27,8 @@ public class UsuarioController implements Serializable {
 	@Inject
 	private UsuarioDAO usuarioDao;
 
-	private List<Usuario> usuarioLista = new ArrayList<Usuario>();
+	@Produces
+	private List<Usuario> usuarioLista;
 
 	public void Novo() {
 		if (usuario != null) {
@@ -34,16 +37,16 @@ public class UsuarioController implements Serializable {
 			// PrimeFaces.current().executeScript("PF('dlg1').show();");
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Sucesso", "Adicionado"));
-
-		} else {
-			System.out.println("null");
 		}
 	}
 
+	@PostConstruct
+	private void init(){
+ 
+		this.usuarioLista = usuarioDao.lista();
+	}
 	public List<Usuario> Listar() {
-		for (Usuario usuario : usuarioLista) {
-			System.out.println("meu nome é" + usuario.getNome());
-		}
+		
 		return this.usuarioLista = new UsuarioDAO().lista();
 
 	}

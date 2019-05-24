@@ -19,7 +19,9 @@
 				<p:outputLabel for="senha" value="Senha"/>
 					<p:inputText  id="senha" value="#{usuarioCtrl.usuario.senha}" required="true" />
 					
-				<p:commandButton value="Inserir" actionListener="#{usuarioCtrl.Novo}" update="panelGrid growl"/>
+				<p:commandButton value="Inserir" actionListener="#{usuarioCtrl.Novo}" update="growl panelGrid"/>
+				
+			
 			</p:panelGrid>
 		
 		</p:panel>
@@ -27,17 +29,19 @@
     			<h:outputText value="usuário salvo com sucesso" />
 		</p:dialog>
 		 -->
-		 <p:dataTable var="u" value="#{usuarioCtrl.usuarioLista}" >
+		
+	</h:form>
+	 <p:dataTable  id="dataTab" widgetVar="dataTab" var="u" value="#{usuarioCtrl.usuarioLista}" >
 	
 			<p:column headerText="Nome">			
-				<h:outputText value="#{u.Nome}"/>		
+				<h:outputText value="#{u.nome}"/>		
 		</p:column>
 			<p:column headerText="Senha">			
-				<h:outputText value="#{u.Senha}"/>		
+				<h:outputText value="#{u.senha}"/>		
 		</p:column>
 	
 	</p:dataTable>
-	</h:form>
+	
 	
 	
 	
