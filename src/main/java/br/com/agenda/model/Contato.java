@@ -29,7 +29,7 @@ public class Contato implements Serializable {
 	private String fone;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_usuario",foreignKey = @ForeignKey(foreignKeyDefinition = "FK_USUARIO"))	
+	@JoinColumn(name = "fk_usuario", foreignKey = @ForeignKey(foreignKeyDefinition = "FK_USUARIO"))
 	private Usuario usuario;
 
 	public Integer getId() {

@@ -8,7 +8,10 @@
             ARQUIVO DE PERSISTÊNCIA JPA E HIBERNATE            
         </description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
- 	
+        
+ 		<class>br.com.agenda.model.Contato</class>
+ 		<class>br.com.agenda.model.Usuario</class>
+ 		
         <properties>
 
          	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

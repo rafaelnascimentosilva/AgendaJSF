@@ -1,6 +1,6 @@
 package br.com.agenda.dao;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,8 +9,9 @@ import javax.persistence.EntityManager;
 import br.com.agenda.interfaces.ICrud;
 import br.com.agenda.model.Usuario;
 
-public class UsuarioDAO implements ICrud<Usuario> {
-	
+public class UsuarioDAO implements ICrud<Usuario>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private EntityManager manager;
 
@@ -26,6 +27,7 @@ public class UsuarioDAO implements ICrud<Usuario> {
 		this.manager.getTransaction().begin();
 		this.manager.merge(u);
 		this.manager.getTransaction().commit();
+
 	}
 
 	@Override
@@ -41,8 +43,8 @@ public class UsuarioDAO implements ICrud<Usuario> {
 	}
 
 	@Override
-	public List<Usuario> lista() {	
-		return this.manager.createQuery("select u from Usuario u",Usuario.class).getResultList();		
+	public List<Usuario> lista() {
+		return this.manager.createQuery("select u from Usuario u", Usuario.class).getResultList();
 	}
 
 }

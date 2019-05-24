@@ -1,0 +1,10 @@
+/*tamanho da fonte dos componentes do primefaces*/
+.ui-widget {
+	font-size: 14px !important;
+}
+
+.ui-g div {
+    background-color: #ededed;
+    text-align: center;
+    border: 1px solid #fafafa;
+}
