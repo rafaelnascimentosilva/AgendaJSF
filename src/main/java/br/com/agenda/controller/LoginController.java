@@ -15,7 +15,7 @@ public class LoginController {
 	private String mensagem;
 
 	public void VerificaLogin() {
-		if (usuario.getNome().equals("ana") && usuario.getSenha().equals("123")) {
+		if (usuario.getNome().equals("ana") && usuario.getFone().equals("123")) {
 			mensagem = "Seja bem vinda: " + usuario.getNome();
 			System.out.println("Seja bem vinda: " + usuario.getNome());
 		} else {

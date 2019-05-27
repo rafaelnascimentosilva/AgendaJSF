@@ -2,8 +2,6 @@ package br.com.agenda.interfaces;
 
 import java.util.List;
 
-import br.com.agenda.model.Usuario;
-
 public interface ICrud<E> {
 
 	public void novo(E entity);
@@ -14,6 +12,6 @@ public interface ICrud<E> {
 
 	public E obtem(Integer id);
 
-	public List<Usuario> lista();
+	public List<E> lista();
 
 }

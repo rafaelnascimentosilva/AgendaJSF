@@ -20,7 +20,7 @@ public class Contato implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private Integer Id;
+	private Integer id;
 
 	@Column(nullable = false, length = 20)
 	private String nome;
@@ -33,11 +33,11 @@ public class Contato implements Serializable {
 	private Usuario usuario;
 
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -68,8 +68,8 @@ public class Contato implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
 		result = prime * result + ((fone == null) ? 0 : fone.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
@@ -84,15 +84,15 @@ public class Contato implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Contato other = (Contato) obj;
-		if (Id == null) {
-			if (other.Id != null)
-				return false;
-		} else if (!Id.equals(other.Id))
-			return false;
 		if (fone == null) {
 			if (other.fone != null)
 				return false;
 		} else if (!fone.equals(other.fone))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
@@ -106,5 +106,8 @@ public class Contato implements Serializable {
 			return false;
 		return true;
 	}
+
+
+	
 
 }

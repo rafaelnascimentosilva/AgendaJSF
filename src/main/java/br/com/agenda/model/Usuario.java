@@ -21,13 +21,13 @@ public class Usuario implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer Id;
+	private Integer id;
 	
 	@Column(nullable = false)
-	private String Nome;
+	private String nome;
 	
 	@Column(nullable = false)
-	private String Senha;
+	private String fone;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Contato> contatos = new ArrayList<Contato>();
@@ -35,33 +35,29 @@ public class Usuario implements Serializable {
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
-	public Usuario(String string) {
-		this.Nome = string;
-	}
-	
 
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
+		this.nome = nome;
 	}
 
-	public String getSenha() {
-		return Senha;
+	public String getFone() {
+		return fone;
 	}
 
-	public void setSenha(String senha) {
-		Senha = senha;
+	public void setFone(String fone) {
+		this.fone = fone;
 	}
 
 	public List<Contato> getContatos() {
@@ -76,10 +72,10 @@ public class Usuario implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
-		result = prime * result + ((Nome == null) ? 0 : Nome.hashCode());
-		result = prime * result + ((Senha == null) ? 0 : Senha.hashCode());
 		result = prime * result + ((contatos == null) ? 0 : contatos.hashCode());
+		result = prime * result + ((fone == null) ? 0 : fone.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -92,27 +88,31 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (Id == null) {
-			if (other.Id != null)
-				return false;
-		} else if (!Id.equals(other.Id))
-			return false;
-		if (Nome == null) {
-			if (other.Nome != null)
-				return false;
-		} else if (!Nome.equals(other.Nome))
-			return false;
-		if (Senha == null) {
-			if (other.Senha != null)
-				return false;
-		} else if (!Senha.equals(other.Senha))
-			return false;
 		if (contatos == null) {
 			if (other.contatos != null)
 				return false;
 		} else if (!contatos.equals(other.contatos))
 			return false;
+		if (fone == null) {
+			if (other.fone != null)
+				return false;
+		} else if (!fone.equals(other.fone))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
 		return true;
 	}
+
+
+	
+
 
 }

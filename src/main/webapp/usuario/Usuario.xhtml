@@ -9,29 +9,34 @@
 <h:body>	
 	<h:form id="form">	
 	   <p:growl id="growl" showDetail="true" sticky="true" life="1000" closeable="true" /> 
-		<p:panel id="panel" header="Novo Usuário">		
-			<p:panelGrid columns="2" id="panelGrid">			
-				<p:outputLabel for="nome"  value="Nome"/>				
+	   <div class="ui-g-4" >	  
+		<p:panel id="panel" header="Novo Usuário" width="100%" style="text-align:center; margin:auto;padding:10px" >
+				
+			<p:panelGrid columns="2"  id="panelGrid"  style="margin:auto;padding:10px" >			
+				<p:outputLabel for="nome"  value="Nome:"/>				
 					<p:inputText id="nome" value="#{usuarioCtrl.usuario.nome}"  />					
-				<p:outputLabel for="senha" value="Senha"/>
-					<p:inputText  id="senha" value="#{usuarioCtrl.usuario.senha}" />					
-				<p:commandButton value="Inserir" actionListener="#{usuarioCtrl.inseri}" update="growl panelGrid dataTab"/>			
+				<p:outputLabel for="fone" value="Fone:"/>					
+					<p:inputMask id="fone" value="#{usuarioCtrl.usuario.fone}" mask="(99) 9999-9999"/>			
 			</p:panelGrid>		
+			
+			<p:commandButton value="Inserir" actionListener="#{usuarioCtrl.inseri}" update="growl panelGrid dataTab"/>	
+			<p:commandButton value="Reset" type="reset" />					
 		</p:panel>
 		
-		<div class="ui-g-6">	  
+	
 		 	<p:dataTable  id="dataTab" var="u" value="#{usuarioCtrl.usuarioLista}" >	
 				<p:column headerText="Nome">			
 						<h:outputText value="#{u.nome}"/>		
 				</p:column>
-				<p:column headerText="Senha">			
-						<h:outputText value="#{u.senha}"/>		
+				<p:column headerText="fone">			
+						<h:outputText value="#{u.fone}"/>		
 				</p:column>
 				<p:column headerText="Ações">		  			
 		  			<p:commandButton actionListener="#{usuarioCtrl.btnDialogoEdita(u)}" icon="ui-icon ui-icon-pencil"  />
 		  			<p:commandButton actionListener="#{usuarioCtrl.deleta(u)}"  icon="ui-icon ui-icon-trash" immediate="true" update="form:growl dataTab">
 		  				<p:confirm header="Confirmação" message="Deseja remover #{u.nome}"/>
 		  			</p:commandButton>
+		  			<p:commandButton actionListener="#{usuarioCtrl.btnDialogoNovoContato(u)}"  update="formContatosPorUsuarios" icon="ui-icon 	ui-icon-contact" />
 				</p:column>	
 			</p:dataTable>		
 		</div>	
@@ -43,8 +48,8 @@
 				<p:column headerText="Nome">			
 					<h:inputText  value="#{usuarioCtrl.usuarioSelecionado.nome}" />	
 				</p:column>
-				<p:column headerText="Senha">			
-					<h:inputText  value="#{usuarioCtrl.usuarioSelecionado.senha}"/>		
+				<p:column headerText="fone">					
+					<p:inputMask id="fone" value="#{usuarioCtrl.usuarioSelecionado.fone}" mask="(99) 9999-9999"/>			
 				</p:column >								
 			</p:panelGrid>	   
 			<div style="bottom: 10px;position: absolute; float:left;"> 
@@ -53,6 +58,40 @@
 		</p:dialog>
 	
 	</h:form>
+	
+	<h:form id="formContatosPorUsuarios">
+		<p:dialog header="Novo Contato" widgetVar="dlgNovoContato" modal="true" width="400" height="200" closable="true" resizable="false">
+			<p:panelGrid columns="2">
+				<p:column headerText="Contato">
+					<h:inputText value="#{usuarioCtrl.contato.nome}"/>
+				</p:column>
+				<p:column headerText="Fone">
+						<h:inputText value="#{usuarioCtrl.contato.fone}"/>
+				</p:column>
+			<p:column headerText="Contato">
+					<h:inputText value="#{usuarioCtrl.usuarioSelecionado.id}"/>
+				</p:column>
+			</p:panelGrid>
+			<div style="bottom: 10px;position: absolute; float:left;"> 
+				<p:commandButton action="#{usuarioCtrl.inseriContato}" value="Salvar" update="form:dataTab"/>					
+			</div>	
+		</p:dialog>
+	
+		<div class="ui-g-4">
+			<p:dataTable  id="dataTab" var="c" value="#{usuarioCtrl.contatoLista}" >	
+			<p:column headerText="Usuario">			
+						<h:outputText value="#{c.usuario.nome}"/>		
+				</p:column>
+				<p:column headerText="Nome">			
+						<h:outputText value="#{c.nome}"/>		
+				</p:column>
+				<p:column headerText="fone">			
+						<h:outputText value="#{c.fone}"/>		
+				</p:column>				
+			</p:dataTable>
+        </div>	
+	</h:form>
+	
 	
  	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
