@@ -57,5 +57,11 @@ public class ContatoDAO implements ICrud<Contato>, Serializable {
 	public List<Contato> lista() {
 		return this.manager.createQuery("select c from Contato c", Contato.class).getResultList();
 	}
+	
+	public List<Contato> listaDeContatosPorId(Integer id) {
+		return this.manager.createQuery("select c from Contato c where fk_usuario = :id", Contato.class)
+				.setParameter("id", id)
+				.getResultList();
+	}
 
 }

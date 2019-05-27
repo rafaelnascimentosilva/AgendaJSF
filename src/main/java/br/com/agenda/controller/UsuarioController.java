@@ -40,6 +40,9 @@ public class UsuarioController implements Serializable {
 	
 	@Produces
 	private List<Contato> contatoLista;
+	
+	@Produces
+	private List<Contato> contatosPorUsuario;
 
 	private Usuario usuarioSelecionado;
 
@@ -221,6 +224,14 @@ public class UsuarioController implements Serializable {
 	public String toString() {
 		return "UsuarioController [usuario=" + usuario + ", usuarioDao=" + usuarioDao + ", usuarioLista=" + usuarioLista
 				+ ", usuarioSelecionado=" + usuarioSelecionado + "]";
+	}
+
+	public List<Contato> getContatosPorUsuario() {
+		return contatosPorUsuario;
+	}
+
+	public void setContatosPorUsuario(List<Contato> contatosPorUsuario) {
+		this.contatosPorUsuario = contatosPorUsuario;
 	}
 
 
