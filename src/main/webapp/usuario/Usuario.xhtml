@@ -78,7 +78,12 @@
 		</p:dialog>
 	<p:panel header="Lista de contatos #{usuarioCtrl.usuarioSelecionado.nome}">
 		
-			<p:dataTable  id="dataTabContatosPorUsuario" var="c" value="#{usuarioCtrl.contatosPorUsuario}"  >	
+			<p:dataTable  id="dataTabContatosPorUsuario" var="c" value="#{usuarioCtrl.contatosPorUsuario}"  
+			rows="5"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rowsPerPageTemplate="5,10,15">            
+			
 			<p:column headerText="Usuario">			
 						<h:outputText value="#{c.usuario.nome}"/>		
 				</p:column>
