@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="default.css"/>	
+</h:head>
+<h:body>	
+	<h:form id="form">	
+	   <p:growl id="growl" showDetail="true" sticky="true" life="1000" closeable="true" /> 
+		<p:panel id="panel" header="Novo Usuário">		
+			<p:panelGrid columns="2" id="panelGrid">			
+				<p:outputLabel for="nome"  value="Nome"/>				
+					<p:inputText id="nome" value="#{usuarioCtrl.usuario.nome}"  />					
+				<p:outputLabel for="senha" value="Senha"/>
+					<p:inputText  id="senha" value="#{usuarioCtrl.usuario.senha}" />					
+				<p:commandButton value="Inserir" actionListener="#{usuarioCtrl.inseri}" update="growl panelGrid dataTab"/>			
+			</p:panelGrid>		
+		</p:panel>
+		
+		<div class="ui-g-6">	  
+		 	<p:dataTable  id="dataTab" var="u" value="#{usuarioCtrl.usuarioLista}" >	
+				<p:column headerText="Nome">			
+						<h:outputText value="#{u.nome}"/>		
+				</p:column>
+				<p:column headerText="Senha">			
+						<h:outputText value="#{u.senha}"/>		
+				</p:column>
+				<p:column headerText="Ações">		  			
+		  			<p:commandButton actionListener="#{usuarioCtrl.btnDialogoEdita(u)}" icon="ui-icon ui-icon-pencil"  />
+		  			<p:commandButton actionListener="#{usuarioCtrl.deleta(u)}"  icon="ui-icon ui-icon-trash" immediate="true" update="form:growl dataTab">
+		  				<p:confirm header="Confirmação" message="Deseja remover #{u.nome}"/>
+		  			</p:commandButton>
+				</p:column>	
+			</p:dataTable>		
+		</div>	
+	</h:form>
+	
+	<h:form id="formEditar">
+		<p:dialog header="Editar" widgetVar="dlgEditar" modal="true"  width="400" height="200" closable="true" resizable="false"  >		    	
+			<p:panelGrid columns="2" id="dlgPanelEditar" >	 
+				<p:column headerText="Nome">			
+					<h:inputText  value="#{usuarioCtrl.usuarioSelecionado.nome}" />	
+				</p:column>
+				<p:column headerText="Senha">			
+					<h:inputText  value="#{usuarioCtrl.usuarioSelecionado.senha}"/>		
+				</p:column >								
+			</p:panelGrid>	   
+			<div style="bottom: 10px;position: absolute; float:left;"> 
+				<p:commandButton action="#{usuarioCtrl.edita}" value="Salvar" update="form:dataTab"/>					
+			</div>		 	
+		</p:dialog>
+	
+	</h:form>
+	
+ 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+    </p:confirmDialog>  
+	
+</h:body>
+</html>

@@ -1,22 +1,13 @@
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import br.com.agenda.dao.UsuarioDAO;
-import br.com.agenda.model.Usuario;
-
 public class Teste {
 	public static void main(String[] args) {
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("agenda_app");
+	
+	/*	EntityManagerFactory factory = Persistence.createEntityManagerFactory("agenda_app");
 		EntityManager manager = factory.createEntityManager();
 
 		
 	
 		
-		//List<Usuario> u = manager.createQuery("select u from Usuario u",Usuario.class).getResultList();
+		List<Usuario> u = manager.createQuery("select u from Usuario u",Usuario.class).getResultList();
 		
 		List<Usuario> u  = new UsuarioDAO().lista();
 		System.out.println("lista: "+ u.get(1).getNome());
@@ -27,8 +18,8 @@ public class Teste {
 		
 		
 		
-	/*	EntityTransaction tra = manager.getTransaction();
-		
+		EntityTransaction tra = manager.getTransaction();
+		s
 		tra.begin();
 
 		Usuario u = new Usuario();

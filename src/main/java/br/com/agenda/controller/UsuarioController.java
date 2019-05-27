@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.Transient;
 
 import org.primefaces.PrimeFaces;
 
@@ -19,11 +17,12 @@ import br.com.agenda.dao.UsuarioDAO;
 import br.com.agenda.model.Usuario;
 
 @Named("usuarioCtrl")
-@SessionScoped
+@ViewScoped
 public class UsuarioController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	private Usuario usuario;
 
 	@Inject
@@ -36,54 +35,51 @@ public class UsuarioController implements Serializable {
 
 	@PostConstruct
 	private void init() {
-
 		this.usuarioLista = usuarioDao.lista();
-
+		this.usuario = new Usuario();
 	}
 
-	public UsuarioController() {
+	public UsuarioController() {}
 
-	}
-
-	public List<Usuario> Listar() {
-
+	public List<Usuario> lista() {
 		return this.usuarioLista = new UsuarioDAO().lista();
+	}
+
+	public void inseri() {
+
+		usuarioDao.novo(this.usuario);
+		usuarioLista.add(usuario);
+		this.usuario = new Usuario();
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Sucesso", "Adicionado"));
 
 	}
 
-	public void Novo() {
-		if (usuario != null) {
-			usuarioDao.novo(this.usuario);
-			this.usuario = new Usuario();
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage("Sucesso", "Adicionado"));
-		}
-	}
+	public void btnDialogoEdita(Usuario u) {
 
-	public void btnDialogoEditar(Usuario u) {
-
-		PrimeFaces current = PrimeFaces.current();
-		current.executeScript("PF('dlgEditar').show();");
 		this.usuarioSelecionado = u;
-	}
-
-	public void btnDialogoDelete(Usuario u) {
-
 		PrimeFaces current = PrimeFaces.current();
-		current.executeScript("PF('dlgDelete').show();");
+		current.ajax().update("formEditar");
+		current.executeScript("PF('dlgEditar').show();");
 
 	}
 
-	public void Editar() {
+	public void edita() {
 		usuarioDao.edita(this.usuarioSelecionado);
 		this.usuarioSelecionado = new Usuario();
-	}
-	
-	public void Delete() {
-		usuarioDao.remove(this.usuarioSelecionado);
-		this.usuarioSelecionado = new Usuario();
+		PrimeFaces current = PrimeFaces.current();
+		current.executeScript("PF('dlgEditar').hide()");
 	}
 
+	public void deleta(Usuario u) {
+		System.out.println("cheguei");
+		this.usuarioSelecionado = u;
+		usuarioDao.remove(this.usuarioSelecionado);
+		usuarioLista.remove(this.usuarioSelecionado);
+		PrimeFaces current = PrimeFaces.current();
+		current.ajax().update("formEditar");
+		this.usuarioSelecionado = new Usuario();
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -116,5 +112,56 @@ public class UsuarioController implements Serializable {
 	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
 		this.usuarioSelecionado = usuarioSelecionado;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		result = prime * result + ((usuarioDao == null) ? 0 : usuarioDao.hashCode());
+		result = prime * result + ((usuarioLista == null) ? 0 : usuarioLista.hashCode());
+		result = prime * result + ((usuarioSelecionado == null) ? 0 : usuarioSelecionado.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsuarioController other = (UsuarioController) obj;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
+		if (usuarioDao == null) {
+			if (other.usuarioDao != null)
+				return false;
+		} else if (!usuarioDao.equals(other.usuarioDao))
+			return false;
+		if (usuarioLista == null) {
+			if (other.usuarioLista != null)
+				return false;
+		} else if (!usuarioLista.equals(other.usuarioLista))
+			return false;
+		if (usuarioSelecionado == null) {
+			if (other.usuarioSelecionado != null)
+				return false;
+		} else if (!usuarioSelecionado.equals(other.usuarioSelecionado))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "UsuarioController [usuario=" + usuario + ", usuarioDao=" + usuarioDao + ", usuarioLista=" + usuarioLista
+				+ ", usuarioSelecionado=" + usuarioSelecionado + "]";
+	}
+	
+	
 
 }

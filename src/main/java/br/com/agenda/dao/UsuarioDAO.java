@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import br.com.agenda.JPAUtil;
 import br.com.agenda.interfaces.ICrud;
 import br.com.agenda.model.Usuario;
 
@@ -14,6 +15,10 @@ public class UsuarioDAO implements ICrud<Usuario>, Serializable {
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private EntityManager manager;
+	
+	public UsuarioDAO() {
+		this.manager = new JPAUtil().getEntityManager();
+	}
 
 	@Override
 	public void novo(Usuario u) {
