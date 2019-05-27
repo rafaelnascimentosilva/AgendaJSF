@@ -75,6 +75,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.37</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+		<dependency>
+		    <groupId>postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>9.1-901-1.jdbc4</version>
+		</dependency>
+		
 
 		<!-- DEPENDENCIA SQLSERVER <dependency> <groupId>com.microsoft.sqlserver</groupId> 
 			<artifactId>mssql-jdbc</artifactId> <version>6.1.0.jre8</version> <scope>compile</scope> 

@@ -7,27 +7,43 @@
         <description>
             ARQUIVO DE PERSISTÊNCIA JPA E HIBERNATE            
         </description>
+        
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         
  		<class>br.com.agenda.model.Contato</class>
  		<class>br.com.agenda.model.Usuario</class>
  		
+ 		 <!-- MYSQL Connection Properties 
+ 		 
         <properties>
-
          	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_agenda_jsf" />
             <property name="javax.persistence.jdbc.user" value="root" />	
             <property name="javax.persistence.jdbc.password" value="" /> 
+            
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+              
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />   
+         </properties>
+         	   
+         END  Connection Properties -->
          
+         <!-- PostgreSQL Connection Properties -->
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/db_agenda_jsf" /> 
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+            <property name="javax.persistence.jdbc.password" value="123" />
+
+	   		<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- create / create-drop / update -->
             
-	   
-        <!-- END - SQL Server Connection Properties -->
-            
-        </properties>
+            <property name="hibernate.show_sql" value="true" /> 
+            <property name="hibernate.format_sql" value="true" /> 
+		</properties>
+      
  
     </persistence-unit>
  
