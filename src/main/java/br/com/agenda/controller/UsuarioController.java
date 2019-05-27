@@ -60,6 +60,11 @@ public class UsuarioController implements Serializable {
 		return this.usuarioLista = new UsuarioDAO().lista();
 	}
 
+	  public void obtemUsuarioSelecionado(){
+		  
+		  this.contatosPorUsuario = contatoDao.listaDeContatosPorId(this.usuarioSelecionado.getId());
+		}
+	
 	public void btnDialogoEdita(Usuario u) {
 		this.usuarioSelecionado = u;
 		PrimeFaces current = PrimeFaces.current();
@@ -82,18 +87,12 @@ public class UsuarioController implements Serializable {
 	
 	public void inseriContato() {
 		if (this.contato!=null) {			
-			//contato.setUsuario(this.usuarioSelecionado);
 			contatoLista = new ArrayList<Contato>();
 			contatoDao.novo(contato);
-			contatoLista.add(contato);
-			PrimeFaces current = PrimeFaces.current();
-			current.ajax().update("formContatosPorUsuarios");
-			
+			contatosPorUsuario.add(contato);			
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Sucesso", "Adicionado"));
 		}		
-	
-	
 	}
 
 	public void inseri() {

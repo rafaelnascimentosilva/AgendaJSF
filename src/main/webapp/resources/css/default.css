@@ -8,3 +8,10 @@
     text-align: center;
     border: 1px solid #fafafa;
 }
+
+#center{
+  margin: auto;
+  width: 50%;
+  border: 0px solid gray;
+  padding: 10px;
+}

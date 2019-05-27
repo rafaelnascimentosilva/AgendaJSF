@@ -6,10 +6,11 @@
 <h:head>
 	<h:outputStylesheet library="css" name="default.css"/>	
 </h:head>
-<h:body>	
+<h:body  >	
+ <div  id="center">
 	<h:form id="form">	
 	   <p:growl id="growl" showDetail="true" sticky="true" life="1000" closeable="true" /> 
-	   <div class="ui-g-4" >	  
+	  	  
 		<p:panel id="panel" header="Novo Usuário" width="100%" style="text-align:center; margin:auto;padding:10px" >
 				
 			<p:panelGrid columns="2"  id="panelGrid"  style="margin:auto;padding:10px" >			
@@ -24,7 +25,8 @@
 		</p:panel>
 		
 	
-		 	<p:dataTable  id="dataTab" var="u" value="#{usuarioCtrl.usuarioLista}" >	
+		 	<p:dataTable  id="dataTab" var="u" value="#{usuarioCtrl.usuarioLista}"  selectionMode="single" selection="#{usuarioCtrl.usuarioSelecionado}" rowKey="#{u.id}" >	
+				<p:ajax  update="formContatosPorUsuarios" event="rowSelect" listener="#{usuarioCtrl.obtemUsuarioSelecionado}"/>
 				<p:column headerText="Nome">			
 						<h:outputText value="#{u.nome}"/>		
 				</p:column>
@@ -39,7 +41,7 @@
 		  			<p:commandButton actionListener="#{usuarioCtrl.btnDialogoNovoContato(u)}"  update="formContatosPorUsuarios" icon="ui-icon 	ui-icon-contact" />
 				</p:column>	
 			</p:dataTable>		
-		</div>	
+			
 	</h:form>
 	
 	<h:form id="formEditar">
@@ -60,7 +62,7 @@
 	</h:form>
 	
 	<h:form id="formContatosPorUsuarios">
-		<p:dialog header="Novo Contato" widgetVar="dlgNovoContato" modal="true" width="400" height="200" closable="true" resizable="false">
+		<p:dialog header="Novo Contato Para #{usuarioCtrl.usuarioSelecionado.nome}" widgetVar="dlgNovoContato" modal="true" width="400" height="200" closable="true" resizable="false">
 			<p:panelGrid columns="2">
 				<p:column headerText="Contato">
 					<h:inputText value="#{usuarioCtrl.contato.nome}"/>
@@ -68,17 +70,15 @@
 				<p:column headerText="Fone">
 						<h:inputText value="#{usuarioCtrl.contato.fone}"/>
 				</p:column>
-			<p:column headerText="Contato">
-					<h:inputText value="#{usuarioCtrl.usuarioSelecionado.id}"/>
-				</p:column>
+			
 			</p:panelGrid>
 			<div style="bottom: 10px;position: absolute; float:left;"> 
-				<p:commandButton action="#{usuarioCtrl.inseriContato}" value="Salvar" update="form:dataTab"/>					
+				<p:commandButton action="#{usuarioCtrl.inseriContato}" value="Salvar" update="formContatosPorUsuarios"/>					
 			</div>	
 		</p:dialog>
-	
-		<div class="ui-g-4">
-			<p:dataTable  id="dataTab" var="c" value="#{usuarioCtrl.contatoLista}" >	
+	<p:panel header="Lista de contatos #{usuarioCtrl.usuarioSelecionado.nome}">
+		
+			<p:dataTable  id="dataTabContatosPorUsuario" var="c" value="#{usuarioCtrl.contatosPorUsuario}"  >	
 			<p:column headerText="Usuario">			
 						<h:outputText value="#{c.usuario.nome}"/>		
 				</p:column>
@@ -89,9 +89,9 @@
 						<h:outputText value="#{c.fone}"/>		
 				</p:column>				
 			</p:dataTable>
-        </div>	
+      </p:panel>
 	</h:form>
-	
+	</div>
 	
  	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
