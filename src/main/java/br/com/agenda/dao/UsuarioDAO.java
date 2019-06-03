@@ -17,7 +17,7 @@ public class UsuarioDAO implements ICrud<Usuario>, Serializable {
 	private EntityManager manager;
 	
 	public UsuarioDAO() {
-		this.manager = new JPAUtil().getEntityManager();
+		//this.manager = new JPAUtil().getEntityManager();
 	}
 
 	@Override

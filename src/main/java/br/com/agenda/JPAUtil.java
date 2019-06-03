@@ -25,4 +25,14 @@ public class JPAUtil implements Serializable {
 			em.close();
 		}
 	}
+
+
+	public static EntityManagerFactory getFactory() {
+		return factory;
+	}
+
+
+	public static void setFactory(EntityManagerFactory factory) {
+		JPAUtil.factory = factory;
+	}
 }

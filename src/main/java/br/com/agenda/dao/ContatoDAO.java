@@ -17,7 +17,7 @@ public class ContatoDAO implements ICrud<Contato>, Serializable {
 	private EntityManager manager;
 	
 	public ContatoDAO() {
-		this.manager = new JPAUtil().getEntityManager();
+		//this.manager = new JPAUtil().getEntityManager();
 	}
 
 	@Override
